@@ -1,0 +1,13 @@
+{
+  "name": "lba-snmp-interface",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mmarchini/lba-snmp-interface",
+  "authors": [
+    "Matheus Marchini <mmarchini@inf.ufrgs.br>"
+  ],
+  "license": "GPL v2",
+  "dependencies": {
+    "bootswatch": "3.3.1+2",
+    "font-awesome": "~4.2.0"
+  }
+}
