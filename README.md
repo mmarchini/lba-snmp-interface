@@ -43,7 +43,7 @@ bower install
 
 ## Rodando
 
-```
+```bash
 ./index.js --help
 
   Usage: index [options]

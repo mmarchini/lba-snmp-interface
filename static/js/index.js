@@ -16,9 +16,9 @@ setInterval(function(){
       
       // Isso pode dar problema :)
       if(data["paused"]){
-        $("pause").addClass("active");
+        $("#pause").addClass("active");
       } else {
-        $("pause").removeClass("active");
+        $("#pause").removeClass("active");
       }
 
       // TODO nome do jogador
@@ -53,10 +53,11 @@ setInterval(function(){
             newLeaf.css("color", "rgb(166, 133, 61)");
             newLeaf.addClass("fa-archive");
         }
+        newLeaf.css("padding", "0px 5px");
         newLeafTable.push(newLeaf);
       }
 
-      $("#leafTable").replaceWith(newLeafTable);
+      $("#leafTable").html(newLeafTable);
 
 
       var behaviours = $("#behaviours");
@@ -66,15 +67,29 @@ setInterval(function(){
   );
 }, 1000);
 
-$("#behaviours").on("click", "button", function(e){
-    console.log("CLICK");
+$("#running").on("click", "#pause", function(e){
+    console.log("CLICK PAUSE");
     var btn = $(e.target).closest("button");
-    if(btn.hasClass("disabled") || btn.hasClass("active"))
+    if(btn.hasClass("disabled"))
         return;
+    
+    var value = btn.hasClass("active") && "0" || "1";
 
     $.get(
-        "/setBehaviour",
-        {behaviour:btn.attr("idx")}
+        "/setPaused",
+        {paused:value}
     );
 });
+
+// $("#behaviours").on("click", "button", function(e){
+//     console.log("CLICK");
+//     var btn = $(e.target).closest("button");
+//     if(btn.hasClass("disabled") || btn.hasClass("active"))
+//         return;
+// 
+//     $.get(
+//         "/setBehaviour",
+//         {behaviour:btn.attr("idx")}
+//     );
+// });
 

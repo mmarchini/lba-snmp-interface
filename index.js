@@ -82,7 +82,7 @@ function updateData() {
         tmpData["behaviourTable"] = [];
         varbinds.forEach(function (vb) {
           var name = getNameByOID(vb.oid);
-          console.log(name + ' = ' + vb.value + ' (' + vb.type + ')');
+          // console.log(name + ' = ' + vb.value + ' (' + vb.type + ')');
           if(name.indexOf("Table")!=-1){
             tmpData[name].push(vb.value);
           } else {
@@ -110,11 +110,21 @@ function setBehaviour(req, res) {
   });
 }
 
+function setPaused (req, res) {
+  var paused = req.query.paused;
+  console.log("setPaused", paused);
+  var oid = _.clone(mib["paused"]);
+  oid.push(0);
+  session.set({oid:oid, value:paused, type: 66}, function (error, varbinds) {
+    res.send();
+  });
+}
 // SNMP data updater end
 
 app.use("/", express.static('static'));
 app.use("/getAll", getAllData);
 app.use("/setBehaviour", setBehaviour);
+app.use("/setPaused", setPaused);
 
 console.log("Escutando na porta:", port);
 app.listen(port);
