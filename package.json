@@ -16,6 +16,9 @@
     "url": "https://github.com/mmarchini/lba-snmp-interface/issues"
   },
   "dependencies": {
-    "express": "~4.10.4"
+    "express": "~4.10.4",
+    "snmp-native": "~1.0.17",
+    "commander": "~2.5.0",
+    "underscore": "~1.7.0"
   }
 }
