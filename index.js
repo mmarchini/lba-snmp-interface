@@ -110,12 +110,14 @@ function setBehaviour(req, res) {
   });
 }
 
-function setPaused (req, res) {
-  var paused = req.query.paused;
-  console.log("setPaused", paused);
-  var oid = _.clone(mib["paused"]);
+function setPlayerName (req, res) {
+  var playerName = req.query.playerName + '\0';
+  console.log("setPlayerName", playerName);
+  var oid = _.clone(mib["playerName"]);
   oid.push(0);
-  session.set({oid:oid, value:paused, type: 66}, function (error, varbinds) {
+  session.set({oid:oid, value:playerName, type: 4}, function (error, varbinds) {
+    console.log(error);
+    console.log(varbinds[0].value);
     res.send();
   });
 }
@@ -124,7 +126,7 @@ function setPaused (req, res) {
 app.use("/", express.static('static'));
 app.use("/getAll", getAllData);
 app.use("/setBehaviour", setBehaviour);
-app.use("/setPaused", setPaused);
+app.use("/setPlayerName", setPlayerName);
 
 console.log("Escutando na porta:", port);
 app.listen(port);

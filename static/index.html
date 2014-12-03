@@ -2,6 +2,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="components/bootswatch/cyborg/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body style="font-size:16px;">
     <div class="navbar navbar-default text-center">
@@ -12,28 +13,48 @@
     </div> 
 
     <div id="running" class="container hidden">
-      <div class="row text-center">
-        <div class="col-sm-12" id="behaviours">
-          <button idx="0" class="btn btn-primary">
-            <img src="img/behaviour_normal.png">
-            <p></p>
-          </button>
-          <button idx="1" class="btn btn-primary">
-            <img src="img/behaviour_athletic.png">
-            <p></p>
-          </button>
-          <button idx="2" class="btn btn-primary">
-            <img src="img/behaviour_aggressive.png">
-            <p></p>
-          </button>
-          <button idx="3" class="btn btn-primary">
-            <img src="img/behaviour_discrete.png">
-            <p></p>
-          </button>
-          <button idx="4" class="btn btn-primary disabled">
-            <img src="img/behaviour_protopack.png">
-            <p></p>
-          </button>
+      <div class="row text-center" id="behaviours">
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <button idx="0" class="btn btn-primary">
+                <img src="img/behaviour_normal.png">
+                <p></p>
+              </button>
+            </div>
+            <div class="col-sm-6 text-center">
+              <button idx="1" class="btn btn-primary">
+                <img src="img/behaviour_athletic.png">
+                <p></p>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <button idx="2" class="btn btn-primary">
+                <img src="img/behaviour_aggressive.png">
+                <p></p>
+              </button>
+            </div>
+            <div class="col-sm-6 text-center">
+              <button idx="3" class="btn btn-primary">
+                <img src="img/behaviour_discrete.png">
+                <p></p>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-6 col-sm-12 text-center">
+              <button idx="4" class="btn btn-primary disabled">
+                <img src="img/behaviour_protopack.png">
+                <p></p>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -62,12 +83,21 @@
         </div>
       </div>
 
-      <div class="row text-center" style="margin-top:65px;">
-          <div class="col-sm-12">
-            <button id="pause" class="btn btn-warning btn-lg">Pausar</button>
+      <div id="playerNameContainer" class="row text-left" style="margin-top: 10px;">
+        <div class="col-sm-3">
+          <div class="input-group">
+            <input id="playerName" type="text" class="form-control"></input>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" id="setPlayerName"><i class="fa fa-refresh"></i> Atualizar</button>
+            </span>
           </div>
+        </div>
+        <div class="col-sm-9">
+        </div>
       </div>
     </div>
+
+    <!--<button id="pause" class="btn btn-warning" style="border-radius: 0;">Pausado</button>-->
 
     <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>

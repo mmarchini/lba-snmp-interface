@@ -1,24 +1,30 @@
 var GET_ALL = "/getAll";
 
+var running = false;
+
 setInterval(function(){
   $.get(
     GET_ALL, 
     function (data, textStatus) {
       // Running 
-      if(!data["running"]) {
+      if(!data["running"] && running) {
         $("#waiting").removeClass("hidden");
         $("#running").addClass("hidden");
-        return;
-      } else {
+        running=false;
+      } else if(data["running"] && !running){
+        $("#playerName").val(data["playerName"]);
+        running=true;
         $("#waiting").addClass("hidden");
         $("#running").removeClass("hidden");
       }
+      if(!running)
+        return;
       
       // Isso pode dar problema :)
       if(data["paused"]){
-        $("#pause").addClass("active");
+        $("#pause").removeClass("btn-outline");
       } else {
-        $("#pause").removeClass("active");
+        $("#pause").addClass("btn-outline");
       }
 
       // TODO nome do jogador
@@ -27,14 +33,12 @@ setInterval(function(){
       var maxLife = data["maxLife"];
       var curLife = data["curLife"];
       var percentLife = 100*curLife/maxLife;
-      console.log(percentLife, curLife, maxLife);
       $("#lifeBar").css("width", percentLife+"%");
 
       // Magic Points 
       var maxMP = data["maxMP"];
       var curMP = data["curMP"];
       var percentMP = 100*curMP/maxMP;
-      console.log(percentMP, curMP, maxMP);
       $("#mpBar").css("width", percentMP+"%");
 
       // Cashes and Keys
@@ -63,33 +67,36 @@ setInterval(function(){
       var behaviours = $("#behaviours");
       $("button", behaviours).removeClass("active");
       $("button[idx='"+data["behaviourCurrent"]+"']").addClass("active");
+
+      var behaviourTable = data["behaviourTable"];
+      for(var i in behaviourTable){
+        var paragraph = $("p", $('button[idx="'+i+'"]'));
+        paragraph.html(behaviourTable[i]);
+      }
+
     }
   );
 }, 1000);
 
-$("#running").on("click", "#pause", function(e){
-    console.log("CLICK PAUSE");
+$("#behaviours").on("click", "button", function(e){
     var btn = $(e.target).closest("button");
-    if(btn.hasClass("disabled"))
+    if(btn.hasClass("disabled") || btn.hasClass("active"))
         return;
-    
-    var value = btn.hasClass("active") && "0" || "1";
 
     $.get(
-        "/setPaused",
-        {paused:value}
+        "/setBehaviour",
+        {behaviour:btn.attr("idx")}
     );
 });
 
-// $("#behaviours").on("click", "button", function(e){
-//     console.log("CLICK");
-//     var btn = $(e.target).closest("button");
-//     if(btn.hasClass("disabled") || btn.hasClass("active"))
-//         return;
-// 
-//     $.get(
-//         "/setBehaviour",
-//         {behaviour:btn.attr("idx")}
-//     );
-// });
+$("#playerNameContainer").on("click", "button", function(e){
+    var playerName = $("input", $(e.target).closest("#playerNameContainer")).val();
+    console.log($("input", e.target));
+    console.log($("input", $(e.target)));
+    console.log(playerName);
 
+    $.get(
+        "/setPlayerName",
+        {playerName:playerName}
+    );
+});
